@@ -52,26 +52,23 @@ void setQueue(){
   Status status = Status(Pitcher[0], Pitcher[1], Pitcher[2]);
   status.transition = queue[0].transition + (" " + to_string(Pitcher[0]) + " " + to_string(Pitcher[1]) + " " + to_string(Pitcher[2]) + "\n");
   queue.push_back(status);
-  cout << "transition" << status.transition << endl;
 }
 
 //訪問済みかどうかの判定を行う。もし新規ならvisitedListに追加する
 bool checkVisited(){
+  if(visitedList.empty()){return false;}
   for(auto itr = visitedList.begin();itr != visitedList.end();itr++){
     vector<int> arr = *itr;
-    if(arr[0] != Pitcher[0]){return false;}
-    if(arr[1] != Pitcher[1]){return false;}
-    if(arr[2] != Pitcher[2]){return false;}
     if((arr[0] != Pitcher[0]) or (arr[1] != Pitcher[1]) or (arr[2] != Pitcher[2])){
       vector<int> node;
       node.push_back(Pitcher[0]);
       node.push_back(Pitcher[1]);
       node.push_back(Pitcher[2]);
       visitedList.push_back(node);
-      return true;
+      return false;
     }
   }
-  return false;
+  return true;
 }
 
 //終了判定を行う
@@ -105,7 +102,6 @@ int main(){
     //sleep(1);
     // << "queue" << endl;
     if(checkVisited()){break;}
-    cout << Pitcher[0] << " " << Pitcher[1] << " " << Pitcher[2] << endl;
     if(checkFinish()){break;}
     //
 
